@@ -4,11 +4,13 @@ namespace MyPersonalFinanceApp.Infra.Interfaces
 {
     public interface ITaskRepository
     {
-        Task<Tarefa> ObterPorId(int id);
-        Task<IEnumerable<Tarefa>> ObterPorUsuario(int idUsuario);
-        Task<IEnumerable<Tarefa>> ObterPorStatus(int idUsuario, StatusTarefa status);
-        Task Adicionar(Tarefa tarefa);
-        Task Atualizar(Tarefa tarefa);
-        Task Remover(int id);
+        Task<Tarefa> GetById(int id);
+        Task<IEnumerable<Tarefa>> GetAll();
+        Task<IEnumerable<Tarefa>> GetByUser(int idUsuario);
+        Task<IEnumerable<Tarefa>> GetByStatus(int idUsuario, StatusTarefa status);
+        Task<bool> GetIfTaskBelongsUser(int userId, int taskId);
+        Task<int> Add(Tarefa tarefa);
+        Task<int> Update(Tarefa tarefa);
+        Task<int> Delete(int id);
     }
 }

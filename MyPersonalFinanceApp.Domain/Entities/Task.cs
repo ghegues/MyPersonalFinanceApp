@@ -1,5 +1,3 @@
-using System;
-
 namespace MyPersonalFinanceApp.Domain.Entities
 {
     public class Tarefa
@@ -9,7 +7,7 @@ namespace MyPersonalFinanceApp.Domain.Entities
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? CompletionDate { get; set; }
-        public TaskStatus Status { get; set; }
+        public StatusTarefa Status { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
     }

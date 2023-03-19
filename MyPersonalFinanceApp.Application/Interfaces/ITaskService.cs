@@ -6,10 +6,11 @@ namespace MyPersonalFinanceApp.Application.Interfaces
 {
     public interface ITaskService
     {
-        TaskDTO GetById(int id);
-        IEnumerable<TaskDTO> GetAll();
-        int Create(TaskDTO taskDTO);
-        void Update(TaskDTO taskDTO);
-        void Delete(int id);
+        Task<TaskDTO> GetByIdAsync(int id);
+        Task<IEnumerable<TaskDTO>> GetAllAsync();
+        Task<TaskDTO> AddAsync(TaskDTO taskDto);
+        Task<bool> GetIfTaskBelongsUser(int userId, int taskId);
+        Task UpdateAsync(int id, TaskDTO taskDto);
+        Task DeleteAsync(int id);
     }
 }

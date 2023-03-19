@@ -1,3 +1,4 @@
+using AutoMapper;
 using MyPersonalFinanceApp.Application.DTOs;
 using MyPersonalFinanceApp.Application.Interfaces;
 using MyPersonalFinanceApp.Application.Utils;
@@ -11,11 +12,13 @@ namespace MyPersonalFinanceApp.Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly PasswordHasher _passwordHasher;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, PasswordHasher passwordHasher)
+        public UserService(IUserRepository userRepository, PasswordHasher passwordHasher, IMapper mapper)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _mapper = mapper;
         }
 
         public async Task<Response> RegisterUserAsync(UserDTO userDTO)
@@ -38,6 +41,17 @@ namespace MyPersonalFinanceApp.Application.Services
             return new Response { Success = true, Message = "Usuário cadastrado com sucesso." };
         }
 
-        // Implemente outros métodos do serviço conforme necessário
+        public async Task<UserDTO> GetByEmail(string email)
+        {
+            var user = await _userRepository.GetByEmail(email);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<UserDTO>(user);
+        }
+
     }
 }

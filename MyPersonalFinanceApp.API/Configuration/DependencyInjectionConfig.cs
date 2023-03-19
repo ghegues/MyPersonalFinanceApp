@@ -22,6 +22,8 @@ namespace MyPersonalFinanceApp.API.Configuration
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<PasswordHasher>();
 
+            services.AddAutoMapper(typeof(ApplicationMappingProfile));
+
             return services;
         }
     }

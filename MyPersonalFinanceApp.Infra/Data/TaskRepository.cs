@@ -14,14 +14,27 @@ namespace MyPersonalFinanceApp.Infra.Repositories
             _context = context;
         }
 
-        public async Task<Tarefa> ObterPorId(int id)
+        public async Task<Tarefa> GetById(int id)
         {
             return await _context.Tasks
                 .Include(t => t.User)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<IEnumerable<Tarefa>> ObterPorUsuario(int idUsuario)
+        public async Task<bool> GetIfTaskBelongsUser(int userId, int taskId)
+        {
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskId && t.UserId == userId);
+            return task != null;
+        }
+
+        public async Task<IEnumerable<Tarefa>> GetAll()
+        {
+            return await _context.Tasks
+                .Include(t => t.User)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Tarefa>> GetByUser(int idUsuario)
         {
             return await _context.Tasks
                 .Include(t => t.User)
@@ -29,31 +42,31 @@ namespace MyPersonalFinanceApp.Infra.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Tarefa>> ObterPorStatus(int idUsuario, StatusTarefa status)
+        public async Task<IEnumerable<Tarefa>> GetByStatus(int idUsuario, StatusTarefa status)
         {
             return await _context.Tasks
                 .Include(t => t.User)
-                .Where(t => t.IdUsuario == idUsuario && t.Status == status)
+                .Where(t => t.UserId == idUsuario && t.Status == status)
                 .ToListAsync();
         }
 
-        public async Task Adicionar(Tarefa tarefa)
+        public async Task<int> Add(Tarefa tarefa)
         {
             await _context.Tasks.AddAsync(tarefa);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        public async Task Atualizar(Tarefa tarefa)
+        public async Task<int> Update(Tarefa tarefa)
         {
             _context.Tasks.Update(tarefa);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        public async Task Remover(int id)
+        public async Task<int> Delete(int id)
         {
-            var tarefa = await ObterPorId(id);
+            var tarefa = await GetById(id);
             _context.Tasks.Remove(tarefa);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

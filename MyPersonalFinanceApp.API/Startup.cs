@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using MyPersonalFinanceApp.API.Authorization;
 using MyPersonalFinanceApp.API.Configuration;
 using MyPersonalFinanceApp.Infra.Data;
 using System.Text;
@@ -45,9 +47,16 @@ namespace MyPersonalFinanceApp.API
                     };
                 });
 
-           
+            services.AddHttpContextAccessor();
+            services.AddScoped<IAuthorizationHandler, UserOwnsTaskHandler>();
 
-            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("TaskOwnerPolicy", policy =>
+                    policy.Requirements.Add(new UserOwnsTaskRequirement()));
+            });
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,6 +73,8 @@ namespace MyPersonalFinanceApp.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {
