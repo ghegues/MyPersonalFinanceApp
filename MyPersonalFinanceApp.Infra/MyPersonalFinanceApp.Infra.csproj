@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyPersonalFinanceApp.Domain\MyPersonalFinanceApp.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

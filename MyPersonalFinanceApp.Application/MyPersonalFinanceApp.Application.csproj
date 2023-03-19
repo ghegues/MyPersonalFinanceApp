@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyPersonalFinanceApp.Domain\MyPersonalFinanceApp.Domain.csproj" />
+    <ProjectReference Include="..\MyPersonalFinanceApp.Infra\MyPersonalFinanceApp.Infra.csproj" />
+    <ProjectReference Include="..\MyPersonalFinanceApp.JWT\MyPersonalFinanceApp.JWT.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>610ad360-7579-4855-96cf-3fc68f13e6de</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
